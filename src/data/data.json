@@ -1,0 +1,109 @@
+{
+  "business": {
+    "name": "Litls Funzone",
+    "tagline": "Where Fun Meets Fitness",
+    "contact": {
+      "phone_whatsapp": "8282099880",
+      "address": "39A/36, Prince Golam Md Shah Road, Kolkata - 700095",
+      "landmark": "Near Lords Bakery Signal & South City Mall",
+      "instagram": "litlsfunzone",
+      "facebook": "Litls Funzone",
+      "google_maps_available": true
+    }
+  },
+  "gallery": [
+    {
+      "id": 1,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_1600/v1774158349/Hitube_uAJAw0d1qE_2026_03_21_14_04_36_nhqavh.jpg",
+      "alt": "Kids indoor play area with colorful equipment at Litls Funzone Kolkata"
+    },
+    {
+      "id": 2,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_1600/v1774158349/Hitube_Eij4ouuZbV_2026_03_21_14_04_41_vcbjrq.jpg",
+      "alt": "Birthday party celebration setup with balloons and decorations"
+    },
+    {
+      "id": 3,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_1600/v1774158349/Hitube_swJjMDJV44_2026_03_21_14_16_15_wwhei9.jpg",
+      "alt": "Children enjoying playzone activities at Litls Funzone"
+    },
+    {
+      "id": 4,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_1600/v1774158349/Hitube_jHxsvb8eSs_2026_03_21_14_16_11_mrem1y.jpg",
+      "alt": "Soft play area and slides for toddlers"
+    },
+    {
+      "id": 5,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_1600/v1774158349/Hitube_QlWpiRepBe_2026_03_21_14_04_44_eldrse.jpg",
+      "alt": "Decorated birthday party hall at Litls Funzone"
+    },
+    {
+      "id": 6,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_1600/v1774158349/Hitube_Nnzop4Gb8o_2026_03_21_14_16_08_sk2ila.jpg",
+      "alt": "Indoor fun activities for kids in Kolkata playzone"
+    },
+    {
+      "id": 7,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_1600/v1774158349/Hitube_KYVwCnqxfu_2026_03_21_14_04_33_f7hpnc.jpg",
+      "alt": "Kids birthday celebration with cake cutting ceremony"
+    },
+    {
+      "id": 8,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_1600/v1774158348/Hitube_e3uBGGF8FW_2026_03_21_14_04_38_ivklg1.jpg",
+      "alt": "Colorful indoor play setup for children"
+    },
+    {
+      "id": 9,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_1600/v1774158348/Hitube_EfEy0n4A8m_2026_03_21_14_16_13_eqr5hw.jpg",
+      "alt": "Fun birthday party moments at Litls Funzone"
+    }
+  ],
+  "happy_client_reviews": [
+    {
+      "id": 1,
+      "type": "video",
+      "url": "https://res.cloudinary.com/dzfnc0xvq/video/upload/v1774163365/Parents_trust_is_our_biggest_achievement_%EF%B8%8F_What_do_you_look_for_in_a_kids_playzone_When_paren_hskwdr.mp4",
+      "title": "Parents trust is our biggest achievement",
+      "description": "Happy parent sharing their experience at Litls Funzone"
+    },
+    {
+      "id": 2,
+      "type": "video",
+      "url": "https://res.cloudinary.com/dzfnc0xvq/video/upload/v1774163371/Happy_parents_happier_kids_Nothing_makes_us_prouder_than_your_smiles_Thank_you_for_trusting_o_mbfg1b.mp4",
+      "title": "Happy parents, happier kids",
+      "description": "Parent testimonial appreciating the playzone experience"
+    },
+    {
+      "id": 3,
+      "type": "video",
+      "url": "https://res.cloudinary.com/dzfnc0xvq/video/upload/v1774163366/Happy_parents_happier_kids_Nothing_makes_us_prouder_than_your_smiles_Thank_you_for_trusting_o_1_eijdmw.mp4",
+      "title": "Happy parents, happier kids (Review 2)",
+      "description": "Another joyful parent review at Litls Funzone"
+    }
+  ],
+  "services": [
+    {
+      "service_type": "Birthday Party Package",
+      "age_group": "1-9 years",
+      "tagline": "Celebrate Birthday with Food, Fun and Play",
+      "pricing": {
+        "child_per_head": 999,
+        "adult_per_head": 799,
+        "currency": "INR"
+      }
+    },
+    {
+      "service_type": "Child Daycare",
+      "admission_status": "Open",
+      "description": "Safe, nurturing and creative environment where every child thrives",
+      "timing": {
+        "days": "Weekdays",
+        "hours": "10:30 AM - 7:00 PM"
+      },
+      "fees": {
+        "monthly": 9999,
+        "currency": "INR"
+      }
+    }
+  ]
+}
