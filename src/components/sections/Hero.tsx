@@ -1,42 +1,27 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
-import { Phone, PartyPopper, Star } from "lucide-react";
+import { motion } from "framer-motion";
+import { Award, Heart, PartyPopper, Phone, Star } from "lucide-react";
 import data from "@/data/data.json";
 
 const counters = [
-  { label: "Happy Kids", end: 5000, suffix: "+" },
-  { label: "Parties Hosted", end: 500, suffix: "+" },
-  { label: "Years of Fun", end: 3, suffix: "+" },
+  {
+    title: "Happy Kids",
+    subtitle: "Loved by children who keep coming back for more fun",
+    accentClass: "from-fun-orange/20 to-fun-yellow/10 border-fun-orange/30",
+    Icon: Heart,
+  },
+  {
+    title: "Joyful Parties",
+    subtitle: "Successfully hosted celebrations full of laughter and memories",
+    accentClass: "from-fun-pink/20 to-fun-purple/10 border-fun-pink/30",
+    Icon: PartyPopper,
+  },
+  {
+    title: "Years of Care",
+    subtitle: "Experienced team dedicated to protecting every child's smile",
+    accentClass: "from-fun-green/20 to-primary/10 border-fun-green/30",
+    Icon: Award,
+  },
 ];
-
-const Counter = ({ end, suffix }: { end: number; suffix: string }) => {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
-
-  useEffect(() => {
-    if (!inView) return;
-    let start = 0;
-    const duration = 2000;
-    const step = end / (duration / 16);
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
-    return () => clearInterval(timer);
-  }, [inView, end]);
-
-  return (
-    <span ref={ref} className="font-display text-3xl md:text-4xl font-extrabold text-primary">
-      {count.toLocaleString()}{suffix}
-    </span>
-  );
-};
 
 const FloatingShape = ({ className, delay = 0 }: { className: string; delay?: number }) => (
   <motion.div
@@ -44,6 +29,35 @@ const FloatingShape = ({ className, delay = 0 }: { className: string; delay?: nu
     animate={{ y: [0, -20, 0], rotate: [0, 10, -10, 0] }}
     transition={{ duration: 6, repeat: Infinity, delay, ease: "easeInOut" }}
   />
+);
+
+const CartoonBuddy = ({
+  className,
+  faceClass,
+  earClass,
+  delay = 0,
+}: {
+  className: string;
+  faceClass: string;
+  earClass: string;
+  delay?: number;
+}) => (
+  <motion.div
+    className={`pointer-events-none absolute ${className}`}
+    animate={{ y: [0, -12, 0], rotate: [0, 3, -3, 0] }}
+    transition={{ duration: 7, repeat: Infinity, delay, ease: "easeInOut" }}
+  >
+    <div className="relative h-20 w-20 md:h-24 md:w-24">
+      <div className={`absolute -top-2 left-2 h-6 w-6 rounded-full ${earClass} border-2 border-foreground/10`} />
+      <div className={`absolute -top-2 right-2 h-6 w-6 rounded-full ${earClass} border-2 border-foreground/10`} />
+      <div className={`absolute inset-0 rounded-full ${faceClass} border-2 border-foreground/10 shadow-lg`} />
+      <div className="absolute left-5 top-8 h-2.5 w-2.5 rounded-full bg-foreground/70" />
+      <div className="absolute right-5 top-8 h-2.5 w-2.5 rounded-full bg-foreground/70" />
+      <div className="absolute left-1/2 top-12 h-1.5 w-8 -translate-x-1/2 rounded-full bg-foreground/70" />
+      <div className="absolute left-3 top-11 h-2 w-2 rounded-full bg-secondary/40" />
+      <div className="absolute right-3 top-11 h-2 w-2 rounded-full bg-secondary/40" />
+    </div>
+  </motion.div>
 );
 
 const Hero = () => {
@@ -63,6 +77,11 @@ const Hero = () => {
       <FloatingShape className="w-16 h-16 bg-fun-green bottom-[20%] left-[15%]" delay={2} />
       <FloatingShape className="w-10 h-10 bg-fun-purple bottom-[30%] right-[20%]" delay={0.5} />
       <FloatingShape className="w-12 h-12 bg-fun-orange top-[60%] left-[50%]" delay={1.5} />
+
+      {/* Cartoon character elements */}
+      <CartoonBuddy className="top-[10%] right-[6%] opacity-60" faceClass="bg-fun-yellow/70" earClass="bg-fun-orange/65" delay={0.2} />
+      <CartoonBuddy className="top-[58%] left-[4%] opacity-55 hidden sm:block" faceClass="bg-fun-pink/65" earClass="bg-fun-purple/60" delay={1.1} />
+      <CartoonBuddy className="bottom-[8%] right-[14%] opacity-60" faceClass="bg-fun-green/65" earClass="bg-primary/45" delay={2.3} />
 
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-20 -right-20 w-72 h-72 bg-fun-yellow/20 rounded-full animate-blob" />
@@ -112,13 +131,24 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="grid grid-cols-3 gap-6 max-w-lg mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto"
         >
-          {counters.map((c) => (
-            <div key={c.label} className="flex flex-col items-center">
-              <Counter end={c.end} suffix={c.suffix} />
-              <span className="text-muted-foreground font-semibold text-sm mt-1">{c.label}</span>
-            </div>
+          {counters.map((c, index) => (
+            <motion.div
+              key={c.title}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.7 + index * 0.15 }}
+              whileHover={{ y: -6, scale: 1.02 }}
+              className={`group relative overflow-hidden rounded-3xl border bg-gradient-to-br ${c.accentClass} bg-white/75 p-5 md:p-6 text-left shadow-lg backdrop-blur-sm transition-all duration-300`}
+            >
+              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-black/5">
+                <c.Icon size={22} className="text-primary" />
+              </div>
+              <h3 className="font-display text-2xl font-extrabold text-foreground mb-2">{c.title}</h3>
+              <p className="font-body text-sm md:text-base leading-relaxed text-foreground/75">{c.subtitle}</p>
+              <div className="pointer-events-none absolute -right-8 -bottom-8 h-24 w-24 rounded-full bg-white/40 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
           ))}
         </motion.div>
       </div>

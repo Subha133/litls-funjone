@@ -104,6 +104,37 @@
         "monthly": 9999,
         "currency": "INR"
       }
+    },
+    {
+      "service_type": "Zumba Fitness",
+      "category": "Fitness",
+      "targetAudience": ["Kids", "Adults", "Mothers"],
+      "schedule": {
+        "day": "Sunday",
+        "time": "6:00 PM - 7:00 PM"
+      },
+      "activities": ["Zumba", "Aerobics", "Yoga"],
+      "pricing": {
+        "validTill": "2026-04-10",
+        "plans": [
+          {
+            "type": "Non-member Women",
+            "price": 800
+          },
+          {
+            "type": "Non-member Kids",
+            "price": 1000,
+            "extra": "15 mins playtime included"
+          },
+          {
+            "type": "Members",
+            "price": 0,
+            "note": "Free for playzone members"
+          }
+        ],
+        "priceIncrease": "20% after 11 April 2026"
+      },
+      "cta": "Admission Ongoing"
     }
   ]
 }

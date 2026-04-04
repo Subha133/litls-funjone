@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { PartyPopper, Baby, Clock, Users } from "lucide-react";
+import { PartyPopper, Baby, Clock, Users, Music } from "lucide-react";
 import confetti from "canvas-confetti";
 import data from "@/data/data.json";
 
@@ -13,27 +13,72 @@ const triggerConfetti = () => {
   });
 };
 
+const formatPrice = (price?: number) =>
+  typeof price === "number" ? `Rs ${price.toLocaleString("en-IN")}` : "N/A";
+
+const getBirthdayMessage = () => {
+  const birthdayService = data.services.find(
+    (service) => service.service_type === "Birthday Party Package",
+  );
+
+  if (!birthdayService) return "Hi! I want to book at Litls Funzone.";
+
+  return `Hi! I am interested in booking ${birthdayService.service_type} at ${data.business.name}.\n\nDetails:\n- Age Group: ${birthdayService.age_group}\n- Child Pricing: ${formatPrice(birthdayService.pricing?.child_per_head)} per child\n- Adult Pricing: ${formatPrice(birthdayService.pricing?.adult_per_head)} per adult\n\nPlease share available slots.`;
+};
+
+const getDaycareMessage = () => {
+  const daycareService = data.services.find(
+    (service) => service.service_type === "Child Daycare",
+  );
+
+  if (!daycareService) return "Hi! I want to enquire about daycare.";
+
+  return `Hi! I am interested in ${daycareService.service_type} at ${data.business.name}.\n\nDetails:\n- Admission: ${daycareService.admission_status}\n- Timing: ${daycareService.timing?.days}, ${daycareService.timing?.hours}\n- Monthly Fee: ${formatPrice(daycareService.fees?.monthly)}\n\nPlease share enrollment details.`;
+};
+
+const getZumbaMessage = () => {
+  const zumbaService = data.services.find(
+    (service) => service.service_type === "Zumba Fitness",
+  );
+
+  if (!zumbaService) return "Hi! I want to book Zumba Fitness.";
+
+  const planLines =
+    zumbaService.pricing?.plans
+      ?.map((plan) => {
+        const details = [
+          `${plan.type}: ${plan.price === 0 ? "Free" : formatPrice(plan.price)}`,
+          plan.extra,
+          plan.note,
+        ]
+          .filter(Boolean)
+          .join(" | ");
+
+        return `- ${details}`;
+      })
+      .join("\n") ?? "- Pricing details available on request";
+
+  return `Hi! I want to book ${zumbaService.service_type} at ${data.business.name}.\n\nCategory: ${zumbaService.category}\nTarget Audience: ${(zumbaService.targetAudience || []).join(", ")}\nSchedule: ${zumbaService.schedule?.day}, ${zumbaService.schedule?.time}\nActivities: ${(zumbaService.activities || []).join(", ")}\n\nPricing (valid till ${zumbaService.pricing?.validTill}):\n${planLines}\n${zumbaService.pricing?.priceIncrease ? `\nNote: ${zumbaService.pricing.priceIncrease}` : ""}\n\n${zumbaService.cta}`;
+};
+
+const openWhatsApp = (message: string, withConfetti = false) => {
+  if (withConfetti) {
+    triggerConfetti();
+  }
+
+  const whatsappUrl = `https://wa.me/${data.business.contact.phone_whatsapp}?text=${encodeURIComponent(message)}`;
+
+  setTimeout(
+    () => {
+      window.open(whatsappUrl, "_blank");
+    },
+    withConfetti ? 600 : 0,
+  );
+};
+
 const Services = () => {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
-
-  const handleBirthdayBooking = () => {
-    triggerConfetti();
-    
-    const message = `Hi! I'm interested in booking a Birthday Party Package at Litls Funzone.
-Details:
-- Age Group: ${data.services[0].age_group}
-- Pricing: ₹${data.services[0].pricing?.child_per_head} Per Child, ₹${data.services[0].pricing?.adult_per_head} Per Adult
-
-Looking forward to it!`;
-    
-    const whatsappUrl = `https://wa.me/${data.business.contact.phone_whatsapp}?text=${encodeURIComponent(message)}`;
-    
-    // Small delay to allow confetti to start before redirecting
-    setTimeout(() => {
-      window.open(whatsappUrl, "_blank");
-    }, 1000);
-  };
 
   return (
     <section id="services" ref={ref} className="py-20 bg-card">
@@ -52,7 +97,7 @@ Looking forward to it!`;
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {data.services.map((service, i) => (
             <motion.div
               key={service.service_type}
@@ -82,21 +127,77 @@ Looking forward to it!`;
                     <div className="rounded-xl bg-fun-pink/10 px-4 py-2 text-center">
                       <p className="text-xs text-muted-foreground">Per Child</p>
                       <p className="font-display text-xl font-bold text-secondary">
-                        ₹{service.pricing?.child_per_head}
+                        {formatPrice(service.pricing?.child_per_head)}
                       </p>
                     </div>
                     <div className="rounded-xl bg-primary/10 px-4 py-2 text-center">
                       <p className="text-xs text-muted-foreground">Per Adult</p>
                       <p className="font-display text-xl font-bold text-primary">
-                        ₹{service.pricing?.adult_per_head}
+                        {formatPrice(service.pricing?.adult_per_head)}
                       </p>
                     </div>
                   </div>
                   <button
-                    onClick={handleBirthdayBooking}
+                    onClick={() => openWhatsApp(getBirthdayMessage(), true)}
                     className="w-full rounded-full bg-secondary py-3 font-display font-bold text-secondary-foreground shadow-md hover:shadow-lg transition-all hover:scale-[1.02]"
                   >
-                    🎉 Book Now
+                    Book Now
+                  </button>
+                </>
+              ) : service.service_type === "Zumba Fitness" ? (
+                <>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <Music className="text-primary" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-display text-2xl font-bold text-foreground">
+                        {service.service_type}
+                      </h3>
+                      <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                        {service.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p className="text-foreground/80 mb-3">
+                    Target Audience: {(service.targetAudience || []).join(", ")}
+                  </p>
+
+                  <div className="flex items-center gap-2 text-muted-foreground mb-2">
+                    <Clock size={16} />
+                    <span>
+                      {service.schedule?.day} | {service.schedule?.time}
+                    </span>
+                  </div>
+
+                  <p className="text-sm text-foreground/80 mb-3">
+                    Activities: {(service.activities || []).join(", ")}
+                  </p>
+
+                  <div className="rounded-xl bg-primary/5 px-4 py-3 mb-4">
+                    <p className="text-xs text-muted-foreground mb-2">
+                      Pricing (valid till {service.pricing?.validTill})
+                    </p>
+                    <div className="space-y-1 text-sm text-foreground/90">
+                      {(service.pricing?.plans || []).map((plan) => (
+                        <p key={plan.type}>
+                          {plan.type}: {plan.price === 0 ? "Free" : formatPrice(plan.price)}
+                          {plan.extra ? ` | ${plan.extra}` : ""}
+                          {plan.note ? ` | ${plan.note}` : ""}
+                        </p>
+                      ))}
+                    </div>
+                    {service.pricing?.priceIncrease && (
+                      <p className="text-xs text-muted-foreground mt-2">{service.pricing.priceIncrease}</p>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={() => openWhatsApp(getZumbaMessage())}
+                    className="w-full rounded-full bg-primary py-3 font-display font-bold text-primary-foreground shadow-md hover:shadow-lg transition-all hover:scale-[1.02]"
+                  >
+                    Book Now
                   </button>
                 </>
               ) : (
@@ -120,25 +221,25 @@ Looking forward to it!`;
                   {service.timing && (
                     <div className="flex items-center gap-2 text-muted-foreground mb-2">
                       <Clock size={16} />
-                      <span>{service.timing.days} · {service.timing.hours}</span>
+                      <span>
+                        {service.timing.days} | {service.timing.hours}
+                      </span>
                     </div>
                   )}
                   {service.fees && (
                     <div className="rounded-xl bg-fun-green/10 px-4 py-2 inline-block mb-6">
                       <p className="text-xs text-muted-foreground">Monthly Fee</p>
                       <p className="font-display text-xl font-bold text-fun-green">
-                        ₹{service.fees.monthly?.toLocaleString()}
+                        {formatPrice(service.fees.monthly)}
                       </p>
                     </div>
                   )}
-                  <a
-                    href={`https://wa.me/${data.business.contact.phone_whatsapp}?text=Hi! I'm interested in the Child Daycare at Litls Funzone`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={() => openWhatsApp(getDaycareMessage())}
                     className="block w-full rounded-full bg-fun-green py-3 font-display font-bold text-center text-primary-foreground shadow-md hover:shadow-lg transition-all hover:scale-[1.02]"
                   >
                     Enquire on WhatsApp
-                  </a>
+                  </button>
                 </>
               )}
             </motion.div>
