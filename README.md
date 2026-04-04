@@ -1,3 +1,3 @@
-# Welcome to your Lovable project
+# Litls Funzone Website
 
-TODO: Document your project here
+React + Vite website for Litls Funzone.
