@@ -209,7 +209,7 @@ const Services = () => {
 
                   {service.additional_services?.pickup_facility?.available && (
                     <p className="mb-4 w-full text-sm text-foreground/80">
-                      Pickup Facility Available{service.additional_services?.pickup_facility?.extra_cost ? " (Extra Cost)" : ""}
+                      Pick up within 5kms with extra cost
                     </p>
                   )}
 
