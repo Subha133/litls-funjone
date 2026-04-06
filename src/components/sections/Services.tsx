@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { PartyPopper, Baby, Clock, Users, Music } from "lucide-react";
@@ -9,236 +11,215 @@ const triggerConfetti = () => {
     particleCount: 100,
     spread: 70,
     origin: { y: 0.6 },
-    colors: ["#FF6B9D", "#FFD93D", "#6BCB77", "#4D96FF", "#FF6B35"],
   });
 };
 
-const formatPrice = (price?: number) =>
+const formatPrice = (price) =>
   typeof price === "number" ? `Rs ${price.toLocaleString("en-IN")}` : "N/A";
 
-const getBirthdayMessage = () => {
-  const birthdayService = data.services.find(
-    (service) => service.service_type === "Birthday Party Package",
-  );
+const openWhatsApp = (message, confettiOn = false) => {
+  if (confettiOn) triggerConfetti();
 
-  if (!birthdayService) return "Hi! I want to book at Litls Funzone.";
+  const url = `https://wa.me/${
+    data.business.contact.phone_whatsapp
+  }?text=${encodeURIComponent(message)}`;
 
-  return `Hi! I am interested in booking ${birthdayService.service_type} at ${data.business.name}.\n\nDetails:\n- Age Group: ${birthdayService.age_group}\n- Child Pricing: ${formatPrice(birthdayService.pricing?.child_per_head)} per child\n- Adult Pricing: ${formatPrice(birthdayService.pricing?.adult_per_head)} per adult\n\nPlease share available slots.`;
-};
-
-const getDaycareMessage = () => {
-  const daycareService = data.services.find(
-    (service) => service.service_type === "Child Daycare",
-  );
-
-  if (!daycareService) return "Hi! I want to enquire about daycare.";
-
-  return `Hi! I am interested in ${daycareService.service_type} at ${data.business.name}.\n\nDetails:\n- Admission: ${daycareService.admission_status}\n- Timing: ${daycareService.timing?.days}, ${daycareService.timing?.hours}\n- Monthly Fee: ${formatPrice(daycareService.fees?.monthly)}\n\nPlease share enrollment details.`;
-};
-
-const getZumbaMessage = () => {
-  const zumbaService = data.services.find(
-    (service) => service.service_type === "Zumba Fitness",
-  );
-
-  if (!zumbaService) return "Hi! I want to book Zumba Fitness.";
-
-  const planLines =
-    zumbaService.pricing?.plans
-      ?.map((plan) => {
-        const details = [
-          `${plan.type}: ${plan.price === 0 ? "Free" : formatPrice(plan.price)}`,
-          plan.extra,
-          plan.note,
-        ]
-          .filter(Boolean)
-          .join(" | ");
-
-        return `- ${details}`;
-      })
-      .join("\n") ?? "- Pricing details available on request";
-
-  return `Hi! I want to book ${zumbaService.service_type} at ${data.business.name}.\n\nCategory: ${zumbaService.category}\nTarget Audience: ${(zumbaService.targetAudience || []).join(", ")}\nSchedule: ${zumbaService.schedule?.day}, ${zumbaService.schedule?.time}\nActivities: ${(zumbaService.activities || []).join(", ")}\n\nPricing (valid till ${zumbaService.pricing?.validTill}):\n${planLines}\n${zumbaService.pricing?.priceIncrease ? `\nNote: ${zumbaService.pricing.priceIncrease}` : ""}\n\n${zumbaService.cta}`;
-};
-
-const openWhatsApp = (message: string, withConfetti = false) => {
-  if (withConfetti) {
-    triggerConfetti();
-  }
-
-  const whatsappUrl = `https://wa.me/${data.business.contact.phone_whatsapp}?text=${encodeURIComponent(message)}`;
-
-  setTimeout(
-    () => {
-      window.open(whatsappUrl, "_blank");
-    },
-    withConfetti ? 600 : 0,
-  );
+  setTimeout(() => window.open(url, "_blank"), confettiOn ? 600 : 0);
 };
 
 const Services = () => {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
 
   return (
     <section id="services" ref={ref} className="py-20 bg-card">
       <div className="container mx-auto px-4">
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <h2 className="font-display text-4xl md:text-5xl font-extrabold text-foreground mb-3">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-3">
             Our Services
           </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Fun-filled experiences designed for kids and peace of mind for parents
+          <p className="text-muted-foreground">
+            Fun for kids, peace for parents
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {data.services.map((service, i) => (
             <motion.div
               key={service.service_type}
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.2 }}
-              className="group relative rounded-2xl bg-background p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-border hover:-translate-y-1 overflow-hidden"
+              transition={{ delay: i * 0.2 }}
+              className="bg-white shadow-lg hover:shadow-xl transition rounded-2xl p-6 flex flex-col items-start h-full"
             >
-              <div className="absolute top-0 right-0 w-24 h-24 bg-fun-yellow/10 rounded-bl-full" />
-
+              {/* 🎉 Birthday */}
               {service.service_type === "Birthday Party Package" ? (
                 <>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center">
-                      <PartyPopper className="text-secondary" size={24} />
-                    </div>
-                    <h3 className="font-display text-2xl font-bold text-foreground">
+                  <div className="flex items-center gap-3 mb-4 w-full">
+                    <PartyPopper />
+                    <h3 className="text-2xl font-bold">
                       {service.service_type}
                     </h3>
                   </div>
-                  <div className="flex items-center gap-2 text-muted-foreground mb-2">
-                    <Users size={16} />
-                    <span>Age Group: {service.age_group}</span>
+
+                  {/* ✅ CONTROLLED IMAGE SIZE */}
+                  <div className="mb-6 flex justify-center w-full">
+                    <img
+                      src={service.image?.url.replace(
+                        "/upload/",
+                        "/upload/f_auto,q_auto/"
+                      )}
+                      alt="birthday"
+                      className="w-full max-w-[450px] h-auto rounded-xl shadow-md"
+                      loading="lazy"
+                    />
                   </div>
-                  <p className="text-foreground/80 font-semibold mb-4">{service.tagline}</p>
-                  <div className="flex flex-wrap gap-4 mb-6">
-                    <div className="rounded-xl bg-fun-pink/10 px-4 py-2 text-center">
-                      <p className="text-xs text-muted-foreground">Per Child</p>
-                      <p className="font-display text-xl font-bold text-secondary">
+
+                  <div className="flex items-center gap-2 mb-3 w-full text-emerald-700 font-semibold">
+                    <Users size={16} />
+                    <span className="rounded-full bg-emerald-100 border border-emerald-200 px-3 py-1 text-emerald-700">{service.age_group}</span>
+                  </div>
+
+                  <p className="mb-5 w-full rounded-lg bg-blue-50 border border-blue-200 px-3 py-2 font-semibold text-blue-700">
+                    {service.tagline}
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-4 mb-6 w-full">
+                    <div className="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3">
+                      <p className="text-sm font-semibold text-emerald-600">Child</p>
+                      <p className="font-bold text-xl text-emerald-700">
                         {formatPrice(service.pricing?.child_per_head)}
                       </p>
                     </div>
-                    <div className="rounded-xl bg-primary/10 px-4 py-2 text-center">
-                      <p className="text-xs text-muted-foreground">Per Adult</p>
-                      <p className="font-display text-xl font-bold text-primary">
+                    <div className="rounded-xl bg-blue-50 border border-blue-200 px-4 py-3">
+                      <p className="text-sm font-semibold text-blue-600">Adult</p>
+                      <p className="font-bold text-xl text-blue-700">
                         {formatPrice(service.pricing?.adult_per_head)}
                       </p>
                     </div>
                   </div>
+
                   <button
-                    onClick={() => openWhatsApp(getBirthdayMessage(), true)}
-                    className="w-full rounded-full bg-secondary py-3 font-display font-bold text-secondary-foreground shadow-md hover:shadow-lg transition-all hover:scale-[1.02]"
+                    onClick={() =>
+                      openWhatsApp("Hi! I want to book Birthday Party.", true)
+                    }
+                    className="w-full bg-pink-500 text-white py-3 rounded-full font-bold hover:scale-105 transition"
                   >
-                    Book Now
+                    Book Birthday 🎉
                   </button>
                 </>
               ) : service.service_type === "Zumba Fitness" ? (
                 <>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <Music className="text-primary" size={24} />
-                    </div>
-                    <div>
-                      <h3 className="font-display text-2xl font-bold text-foreground">
-                        {service.service_type}
-                      </h3>
-                      <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
-                        {service.category}
-                      </span>
-                    </div>
+                  <div className="flex items-center gap-3 mb-4 w-full">
+                    <Music />
+                    <h3 className="text-xl font-bold">
+                      {service.service_type}
+                    </h3>
                   </div>
 
-                  <p className="text-foreground/80 mb-3">
-                    Target Audience: {(service.targetAudience || []).join(", ")}
-                  </p>
-
-                  <div className="flex items-center gap-2 text-muted-foreground mb-2">
-                    <Clock size={16} />
-                    <span>
-                      {service.schedule?.day} | {service.schedule?.time}
-                    </span>
+                  <div className="mb-6 flex justify-center w-full">
+                    <img
+                      src={service.image?.url?.replace(
+                        "/upload/",
+                        "/upload/f_auto,q_auto/"
+                      )}
+                      alt={service.image?.alt || "zumba"}
+                      className="w-full max-w-[450px] h-auto rounded-xl shadow-md"
+                      loading="lazy"
+                    />
                   </div>
 
-                  <p className="text-sm text-foreground/80 mb-3">
-                    Activities: {(service.activities || []).join(", ")}
-                  </p>
-
-                  <div className="rounded-xl bg-primary/5 px-4 py-3 mb-4">
-                    <p className="text-xs text-muted-foreground mb-2">
+                  <div className="w-full space-y-2 mb-4 text-foreground/90">
+                    <p className="font-semibold text-emerald-700">
+                      Target client: {(service.targetAudience || []).join(", ")}
+                    </p>
+                    <p className="text-sm">* {service.schedule?.day} {service.schedule?.time}</p>
+                    <p className="text-sm">Activities: {(service.activities || []).join(", ")}</p>
+                    <p className="text-sm font-semibold text-blue-700">
                       Pricing (valid till {service.pricing?.validTill})
                     </p>
-                    <div className="space-y-1 text-sm text-foreground/90">
-                      {(service.pricing?.plans || []).map((plan) => (
-                        <p key={plan.type}>
-                          {plan.type}: {plan.price === 0 ? "Free" : formatPrice(plan.price)}
-                          {plan.extra ? ` | ${plan.extra}` : ""}
-                          {plan.note ? ` | ${plan.note}` : ""}
-                        </p>
-                      ))}
-                    </div>
-                    {service.pricing?.priceIncrease && (
-                      <p className="text-xs text-muted-foreground mt-2">{service.pricing.priceIncrease}</p>
-                    )}
+                    <p className="text-sm">Non-member Women: {formatPrice(service.pricing?.plans?.[0]?.price)} (4class)</p>
+                    <p className="text-sm">
+                      Non-member Kids: {formatPrice(service.pricing?.plans?.[1]?.price)} ({service.pricing?.plans?.[1]?.extra})
+                    </p>
+                    <p className="text-sm">
+                      Members: {service.pricing?.plans?.[2]?.price === 0 ? "Free" : formatPrice(service.pricing?.plans?.[2]?.price)} | {service.pricing?.plans?.[2]?.note}
+                    </p>
+                    <p className="text-sm font-semibold text-orange-700">20%price hike after 11 April 2026</p>
                   </div>
 
                   <button
-                    onClick={() => openWhatsApp(getZumbaMessage())}
-                    className="w-full rounded-full bg-primary py-3 font-display font-bold text-primary-foreground shadow-md hover:shadow-lg transition-all hover:scale-[1.02]"
+                    onClick={() =>
+                      openWhatsApp("Hi! I want to book Zumba.")
+                    }
+                    className="w-full mt-4 bg-blue-500 text-white py-2 rounded-full"
                   >
-                    Book Now
+                    Book Zumba
                   </button>
                 </>
               ) : (
                 <>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-fun-green/10 flex items-center justify-center">
-                      <Baby className="text-fun-green" size={24} />
-                    </div>
-                    <div>
-                      <h3 className="font-display text-2xl font-bold text-foreground">
-                        {service.service_type}
-                      </h3>
-                      {service.admission_status && (
-                        <span className="text-xs font-bold text-fun-green bg-fun-green/10 px-2 py-0.5 rounded-full">
-                          Admissions {service.admission_status}
-                        </span>
-                      )}
-                    </div>
+                  <div className="flex items-center gap-3 mb-4 w-full">
+                    <Baby />
+                    <h3 className="text-xl font-bold">
+                      {service.service_type}
+                    </h3>
                   </div>
-                  <p className="text-foreground/80 mb-3">{service.description}</p>
-                  {service.timing && (
-                    <div className="flex items-center gap-2 text-muted-foreground mb-2">
-                      <Clock size={16} />
-                      <span>
-                        {service.timing.days} | {service.timing.hours}
-                      </span>
-                    </div>
-                  )}
-                  {service.fees && (
-                    <div className="rounded-xl bg-fun-green/10 px-4 py-2 inline-block mb-6">
-                      <p className="text-xs text-muted-foreground">Monthly Fee</p>
-                      <p className="font-display text-xl font-bold text-fun-green">
-                        {formatPrice(service.fees.monthly)}
+
+                  <div className="mb-6 flex justify-center w-full">
+                    <img
+                      src={service.image?.url?.replace(
+                        "/upload/",
+                        "/upload/f_auto,q_auto/"
+                      )}
+                      alt={service.image?.alt || "daycare"}
+                      className="w-full max-w-[450px] h-auto rounded-xl shadow-md"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <p className="mb-3 w-full font-semibold text-emerald-700">{service.headline || service.description}</p>
+
+                  <div className="flex items-center gap-2 text-sm mb-3 w-full">
+                    <Clock size={16} />
+                    <span>
+                      Weekdays | {service.timing?.weekdays || [service.timing?.days, service.timing?.hours].filter(Boolean).join(" | ")}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 w-full">
+                    <div className="rounded-xl bg-green-50 border border-green-200 px-3 py-2">
+                      <p className="text-sm text-green-700">Monthly</p>
+                      <p className="font-bold text-lg text-green-800">
+                        {formatPrice(service.pricing?.monthly || service.fees?.monthly)}
                       </p>
                     </div>
+                    <div className="rounded-xl bg-blue-50 border border-blue-200 px-3 py-2">
+                      <p className="text-sm text-blue-700">Weekday + Weekend</p>
+                      <p className="font-bold text-lg text-blue-800">
+                        {formatPrice(service.pricing?.weekday_plus_weekend)}
+                      </p>
+                    </div>
+                  </div>
+
+                  {service.additional_services?.pickup_facility?.available && (
+                    <p className="mb-4 w-full text-sm text-foreground/80">
+                      Pickup Facility Available{service.additional_services?.pickup_facility?.extra_cost ? " (Extra Cost)" : ""}
+                    </p>
                   )}
+
                   <button
-                    onClick={() => openWhatsApp(getDaycareMessage())}
-                    className="block w-full rounded-full bg-fun-green py-3 font-display font-bold text-center text-primary-foreground shadow-md hover:shadow-lg transition-all hover:scale-[1.02]"
+                    onClick={() =>
+                      openWhatsApp("Hi! I want daycare details.")
+                    }
+                    className="w-full bg-green-500 text-white py-2 rounded-full"
                   >
-                    Enquire on WhatsApp
+                    Enquire
                   </button>
                 </>
               )}

@@ -84,12 +84,16 @@
   "services": [
     {
       "service_type": "Birthday Party Package",
-      "age_group": "1-9 years",
+      "age_group": "1-10 years",
       "tagline": "Celebrate Birthday with Food, Fun and Play",
       "pricing": {
         "child_per_head": 999,
         "adult_per_head": 799,
         "currency": "INR"
+      },
+      "image": {
+        "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_800/v1775474503/birthyday_party_knli6a.jpg",
+        "alt": "Birthday Party Package at Litls Funzone"
       }
     },
     {
@@ -97,23 +101,45 @@
       "admission_status": "Open",
       "description": "Safe, nurturing and creative environment where every child thrives",
       "timing": {
-        "days": "Weekdays",
-        "hours": "10:30 AM - 7:00 PM"
+        "weekdays": "10:30 AM - 8:00 PM"
       },
       "fees": {
         "monthly": 9999,
         "currency": "INR"
+      },
+      "headline": "Every child tries happily",
+      "pricing": {
+        "monthly": 6999,
+        "weekday_plus_weekend": 8999
+      },
+      "additional_services": {
+        "pickup_facility": {
+          "available": true,
+          "extra_cost": true
+        }
+      },
+      "image": {
+        "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_800/v1775477159/daycare_itffj4.jpg",
+        "alt": "Child Daycare at Litls Funzone"
       }
     },
     {
       "service_type": "Zumba Fitness",
       "category": "Fitness",
-      "targetAudience": ["Kids", "Adults", "Mothers"],
+      "targetAudience": [
+        "Kids",
+        "Adults",
+        "Mothers"
+      ],
       "schedule": {
         "day": "Sunday",
         "time": "6:00 PM - 7:00 PM"
       },
-      "activities": ["Zumba", "Aerobics", "Yoga"],
+      "activities": [
+        "Zumba",
+        "Aerobics",
+        "Yoga"
+      ],
       "pricing": {
         "validTill": "2026-04-10",
         "plans": [
@@ -132,9 +158,13 @@
             "note": "Free for playzone members"
           }
         ],
-        "priceIncrease": "20% after 11 April 2026"
+        "priceIncrease": "20% hike after 11 April 2026"
       },
-      "cta": "Admission Ongoing"
+      "cta": "Admission Ongoing",
+      "image": {
+        "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_800/v1775478681/zumba_srde44.jpg",
+        "alt": "Zumba Fitness at Litls Funzone"
+      }
     }
   ]
 }
