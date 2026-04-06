@@ -104,13 +104,13 @@
         "weekdays": "10:30 AM - 8:00 PM"
       },
       "fees": {
-        "monthly": 9999,
+        "monthly": 6999,
         "currency": "INR"
       },
       "headline": "Every child tries happily",
       "pricing": {
-        "monthly": 9999,
-        "weekday_plus_weekend": 8999
+        "monthly": 6999,
+        "weekday_plus_weekend": 9999
       },
       "additional_services": {
         "pickup_facility": {
@@ -168,3 +168,5 @@
     }
   ]
 }
+
+
