@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Award, Heart, PartyPopper, Phone, Star } from "lucide-react";
+import { Award, Heart, PartyPopper, Phone, Star, Smile } from "lucide-react";
 import data from "@/data/data.json";
 
 const counters = [
@@ -20,6 +20,12 @@ const counters = [
     subtitle: "Experienced team dedicated to protecting every child's smile",
     accentClass: "from-fun-green/20 to-primary/10 border-fun-green/30",
     Icon: Award,
+  },
+  {
+    title: "Happier Parents",
+    subtitle: "No headache of dropping your kid at Funzone! \n🚗 Pick-up from home or school available (for 1st few bookings) at a little extra cost.\n\n✨ For the Kids:\n• Screen-free timepass\n• Fun fitness classes\n• Organised games & activities",
+    accentClass: "from-fun-yellow/20 to-fun-orange/10 border-fun-yellow/30",
+    Icon: Smile,
   },
 ];
 
@@ -102,6 +108,9 @@ const Hero = () => {
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-extrabold text-foreground mb-4 leading-tight">
             {name}
           </h1>
+          <p className="font-display text-lg md:text-xl text-foreground/80 font-bold mb-3">
+            INDOOR PLAYZONE & DAY CARE (South Kolkata).
+          </p>
           <p className="font-display text-xl md:text-2xl text-muted-foreground font-semibold mb-8">
             {tagline}
           </p>
@@ -111,27 +120,39 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+          className="flex flex-col items-center justify-center gap-4 mb-16"
         >
-          <a
-            href="#services"
-            className="flex items-center gap-2 rounded-full bg-secondary px-8 py-4 font-display text-lg font-bold text-secondary-foreground shadow-xl hover:shadow-2xl transition-all hover:scale-105"
-          >
-            <PartyPopper size={22} /> Book Birthday Party
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href="#services"
+              className="flex items-center gap-2 rounded-full bg-secondary px-8 py-4 font-display text-lg font-bold text-secondary-foreground shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+            >
+              <PartyPopper size={22} /> Book Birthday Party
+            </a>
+            <a
+              href="#services"
+              className="flex items-center gap-2 rounded-full bg-fun-pink px-8 py-4 font-display text-lg font-bold text-white shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+            >
+              <Star size={22} /> Book Daycare/Monthly Play Packages
+            </a>
+          </div>
           <a
             href={`tel:${data.business.contact.phone_whatsapp}`}
             className="flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-display text-lg font-bold text-primary-foreground shadow-xl hover:shadow-2xl transition-all hover:scale-105"
           >
             <Phone size={22} /> Call Now
           </a>
+          <div className="rounded-2xl bg-fun-yellow/70 px-5 py-3 text-center shadow-lg ring-1 ring-fun-orange/30">
+            <p className="font-display text-base md:text-lg font-extrabold text-foreground">NO HEADCHE OF PARENTS</p>
+            <p className="font-body text-sm md:text-base font-semibold text-foreground/85">pick up / drop facility available for first few bookings.</p>
+          </div>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6 max-w-4xl mx-auto"
         >
           {counters.map((c, index) => (
             <motion.div
@@ -140,14 +161,14 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.7 + index * 0.15 }}
               whileHover={{ y: -6, scale: 1.02 }}
-              className={`group relative overflow-hidden rounded-3xl border bg-gradient-to-br ${c.accentClass} bg-white/75 p-5 md:p-6 text-left shadow-lg backdrop-blur-sm transition-all duration-300`}
+              className={`group flex flex-col h-full relative overflow-hidden rounded-3xl border bg-gradient-to-br ${c.accentClass} bg-white/80 p-6 md:p-8 text-left shadow-xl backdrop-blur-md transition-all duration-300`}
             >
-              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-black/5">
-                <c.Icon size={22} className="text-primary" />
+              <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-md ring-1 ring-black/5 group-hover:scale-110 transition-transform duration-300">
+                <c.Icon size={26} className="text-primary" />
               </div>
-              <h3 className="font-display text-2xl font-extrabold text-foreground mb-2">{c.title}</h3>
-              <p className="font-body text-sm md:text-base leading-relaxed text-foreground/75">{c.subtitle}</p>
-              <div className="pointer-events-none absolute -right-8 -bottom-8 h-24 w-24 rounded-full bg-white/40 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <h3 className="font-display text-2xl font-extrabold text-foreground mb-3">{c.title}</h3>
+              <p className="font-body text-sm md:text-base leading-relaxed text-foreground/80 whitespace-pre-line flex-grow">{c.subtitle}</p>
+              <div className="pointer-events-none absolute -right-8 -bottom-8 h-32 w-32 rounded-full bg-white/40 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
           ))}
         </motion.div>

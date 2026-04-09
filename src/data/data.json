@@ -165,6 +165,23 @@
         "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_800/v1775478681/zumba_srde44.jpg",
         "alt": "Zumba Fitness at Litls Funzone"
       }
+    },
+    {
+      "service_type": "Play School & Daycare Package",
+      "headline": "A perfect start for your child",
+      "description": "Engaging play school activities combined with reliable daycare.",
+      "image": {
+        "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_800/v1775741875/WhatsApp_Image_2026-04-08_at_11.21.01_PM_o4xnup.jpg",
+        "alt": "play school & daycare package"
+      }
+    },
+    {
+      "service_type": "Playzone",
+      "headline": "Every child Thrives happily",
+      "image": {
+        "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/v1775739215/WhatsApp_Image_2026-04-08_at_11.20.18_PM_qmxl0z.jpg",
+        "alt": "Every child Thrives happily"
+      }
     }
   ]
 }
