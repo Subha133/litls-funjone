@@ -56,6 +56,51 @@
       "id": 9,
       "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_1600/v1774158348/Hitube_EfEy0n4A8m_2026_03_21_14_16_13_eqr5hw.jpg",
       "alt": "Fun birthday party moments at Litls Funzone"
+    },
+    {
+      "id": 10,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_auto,dpr_auto,c_fill,g_auto/WhatsApp_Image_2026-04-10_at_1.04.06_PM_mwmsyj.jpg",
+      "alt": "Kids having fun at Litls Funzone"
+    },
+    {
+      "id": 11,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_auto,dpr_auto,c_fill,g_auto/v1775811251/WhatsApp_Image_2026-04-10_at_1.04.06_PM_7_pguiyy.jpg",
+      "alt": "Litls Funzone play area"
+    },
+    {
+      "id": 12,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_auto,dpr_auto,c_fill,g_auto/v1775811288/WhatsApp_Image_2026-04-10_at_1.04.06_PM_5_trj3wm.jpg",
+      "alt": "Litls Funzone activities"
+    },
+    {
+      "id": 13,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_auto,dpr_auto,c_fill,g_auto/v1775811355/WhatsApp_Image_2026-04-10_at_1.04.06_PM_4_d5ddbe.jpg",
+      "alt": "Children playing at Litls Funzone"
+    },
+    {
+      "id": 14,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_auto,dpr_auto,c_fill,g_auto/v1775811354/WhatsApp_Image_2026-04-10_at_1.04.06_PM_3_pg1d6k.jpg",
+      "alt": "Indoor activities at Litls Funzone"
+    },
+    {
+      "id": 15,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_auto,dpr_auto,c_fill,g_auto/v1775811354/WhatsApp_Image_2026-04-10_at_1.04.06_PM_8_bzs4ob.jpg",
+      "alt": "Birthday party celebration at Litls Funzone"
+    },
+    {
+      "id": 16,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_auto,dpr_auto,c_fill,g_auto/v1775811354/WhatsApp_Image_2026-04-10_at_1.04.06_PM_2_tz6scb.jpg",
+      "alt": "Fun moments at Litls Funzone"
+    },
+    {
+      "id": 17,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_auto,dpr_auto,c_fill,g_auto/v1775811353/WhatsApp_Image_2026-04-10_at_1.04.06_PM_1_rz3k9k.jpg",
+      "alt": "Joyful kids at Litls Funzone"
+    },
+    {
+      "id": 18,
+      "url": "https://res.cloudinary.com/dzfnc0xvq/image/upload/f_auto,q_auto,w_auto,dpr_auto,c_fill,g_auto/v1775811352/WhatsApp_Image_2026-04-10_at_1.04.06_PM_6_a6se9x.jpg",
+      "alt": "Litls Funzone experience"
     }
   ],
   "happy_client_reviews": [
@@ -79,6 +124,20 @@
       "url": "https://res.cloudinary.com/dzfnc0xvq/video/upload/v1774163366/Happy_parents_happier_kids_Nothing_makes_us_prouder_than_your_smiles_Thank_you_for_trusting_o_1_eijdmw.mp4",
       "title": "Happy parents, happier kids (Review 2)",
       "description": "Another joyful parent review at Litls Funzone"
+    },
+    {
+      "id": 4,
+      "type": "video",
+      "url": "https://res.cloudinary.com/dzfnc0xvq/video/upload/v1775812303/WhatsApp_Video_2026-04-10_at_12.59.43_PM_nqldvb.mp4",
+      "title": "Litls Funzone Review 3",
+      "description": "Happy kid playing at Litls Funzone"
+    },
+    {
+      "id": 5,
+      "type": "video",
+      "url": "https://res.cloudinary.com/dzfnc0xvq/video/upload/v1775812322/Looking_for_the_Perfect_Fun_Spot_for_Your_KidsLet_your_little_ones_play_laugh_and_explore_i_fcgvtk.mp4",
+      "title": "Looking for the Perfect Fun Spot for Your Kids",
+      "description": "Let your little ones play, laugh and explore"
     }
   ],
   "services": [
@@ -107,7 +166,7 @@
         "monthly": 6999,
         "currency": "INR"
       },
-      "headline": "Every child tries happily",
+      "headline": "Every child Thrives happily",
       "pricing": {
         "monthly": 6999,
         "weekday_plus_weekend": 9999
@@ -124,7 +183,7 @@
       }
     },
     {
-      "service_type": "Zumba Fitness",
+      "service_type": "Zumba/Dance/Mindful Yoga fitness",
       "category": "Fitness",
       "targetAudience": [
         "Kids",
@@ -132,8 +191,8 @@
         "Mothers"
       ],
       "schedule": {
-        "day": "Sunday",
-        "time": "6:00 PM - 7:00 PM"
+        "day": "Sat/Sunday",
+        "time": "6.30pm to 7.30pm(Date &Timing flexible)"
       },
       "activities": [
         "Zumba",
@@ -141,7 +200,7 @@
         "Yoga"
       ],
       "pricing": {
-        "validTill": "2026-04-10",
+        "validTill": "1st few enrollments",
         "plans": [
           {
             "type": "Non-member Women",

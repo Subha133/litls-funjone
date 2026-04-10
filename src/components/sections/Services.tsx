@@ -120,7 +120,7 @@ const Services = () => {
                       Book Birthday 🎉
                     </button>
                   </>
-                ) : service.service_type === "Zumba Fitness" ? (
+                ) : service.service_type === "Zumba/Dance/Mindful Yoga fitness" ? (
                   <>
                     <div className="flex items-center gap-3 mb-4 w-full">
                       <Music />
@@ -148,7 +148,7 @@ const Services = () => {
                       <p className="text-sm">* {service.schedule?.day} {service.schedule?.time}</p>
                       <p className="text-sm">Activities: {(service.activities || []).join(", ")}</p>
                       <p className="text-sm font-semibold text-blue-700">
-                        Pricing (valid till {service.pricing?.validTill})
+                        Pricing valid till {service.pricing?.validTill}
                       </p>
                       <p className="text-sm">Non-member Women: {formatPrice(service.pricing?.plans?.[0]?.price)} (4class)</p>
                       <p className="text-sm">
@@ -157,7 +157,6 @@ const Services = () => {
                       <p className="text-sm">
                         Members: {service.pricing?.plans?.[2]?.price === 0 ? "Free" : formatPrice(service.pricing?.plans?.[2]?.price)} | {service.pricing?.plans?.[2]?.note}
                       </p>
-                      <p className="text-sm font-semibold text-orange-700">20%price hike after 11 April 2026</p>
                     </div>
 
                     <button
